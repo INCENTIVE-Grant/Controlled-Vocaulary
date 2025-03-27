@@ -1,0 +1,4 @@
+A/Darwin/09/2021 (H3N2)
+A/Guangdong-Moanan/SWL1536/2019 (H1N1)
+A/HongKong/4801/2014 (H3N2)
+A/Singapore/IFNIMH-16-0019/2016 (H3N2)
