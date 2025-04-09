@@ -21,9 +21,12 @@
 ## variants.
 ##
 ## VERSION HISTORY
-## (2025-03-27 MeD] Initial public version
+## [2025-03-27 MeD] Initial public version
+## [2025-04-08 MeD] Add colors (this is a strawman) = v1.0
 ##
 ##**********************************************************************
+## Try to add an internal version to the controlled vocabulary.
+VocabVersion <- 'v1.0'
 
 ## What are the Clinical Trials called?
 ## Use 'None' when it is not from a trial, for example, a positive control.
@@ -72,7 +75,29 @@ VisitDay <- c(
     "D365"         # Day 365: QIV2 sample at 1 year
 )
 
-## There have been an incredible number of different spellings for the
+## Column names in CSV files. The "earlier" ones are used in most (all?)
+## assay-based CSV files. Later ones include "factors" used in some assays
+## but not others, for example, "UreaPresent", a boolean value used in
+## the ISGlobal data set.
+ColumnNames <- c(
+    "SampleType", # What type of sample? A "Control" or a "Standard", etc. See SampleTypes, above.
+    "Trial",      # Which Trial, QIV1, QIV2, QIV3. See TrialNames, above.
+    "SubjectID",  # The subject ID without a leading "QIV1", etc. ATW010, etc
+    "Day",        # Visit day, padded with leading zeros: D000, D003, D028, D030, D58, D180, D360
+    "Assay",      # See "AssayNames", above
+    "Strain",     # Which influenza strain in WHO canonical form. See KnownStrains, below.
+    "Protein",    # The "HA" or "NA" protein from the strain. Written "pHA" and "pNA" to avoid NA.
+    "StrainProt", # A shorthand name for the protein from a specific strain: pHA_A/Darwin etc
+    "Isotype",    # The type of Ig: IgG, IgG1, IgG2, IgG3, IgG4, IgM, IgA, etc
+    "UreaPresent",# A TRUE / FALSE value. Was Urea present (2 Molar) for affinty measures.
+    "Dilution",   # Dilution of a sample, standard or control measurement. Use "1" for no dilution.
+    "Value",      # Value measured - a pure number. Expect to see: digits, minus sign, decimal point
+    "ValueUnit",  # String describing the unit of measure associated with the "Value"
+    "PlateID",    # If multiple plates were run, some ID that is specific to a plate.
+    "Well"        # If micro-titer plates used, what well number: A1 - P24.
+)
+
+## There have been a large number of different spellings for the
 ## influenza strains used. These names are from the WHO nomenclature
 ## and when Googled, turn up papers or products that match the name.
 ## In some locations, I have found misspellings like:
@@ -122,6 +147,89 @@ UnknownStrains <- c(
     "A/HongKong/4801/2014 (H3N2)",               # HongKong --> Hong Kong
     "A/Singapore/IFNIMH-16-0019/2016 (H3N2)"     # IFN --> INF
 )
+
+##======================================================================
+## Experiment with Colors and Symbols for display in a uniform manner
+## Use these by full R name, e.g. and even if the actual colors change
+## then re-running your plots will adjust the colors automatically.
+## These could be used by name: e.g. Plts$India$QIV2$Resp$col for the
+## color of a Responder from the India QIV2 trial.
+##
+## This is a stawman. I started with "India=Orange" and "Europe=Blue".
+## Then I tried different shades of each for the QIV1, 2, and 3
+## trials.  Finally, I altered the symbol to be a '+' for a responder
+## and a 'o' for a non-responder.
+##
+## Examine the R defaults with:
+##     plot(1:10, 1:10, pch=1:10, col=1:10)
+## Examine the current color scheme in 'Plts' using the function below:
+##    showColorScheme()
+Plts <- list(
+    India=list(
+        QIV1=list(
+            Resp= list(col='orange4', pch=3),
+            NResp=list(col='orange4', pch=1)
+        ),
+        QIV2=list(
+            Resp= list(col='orange1', pch=3),
+            NResp=list(col='orange1', pch=1)
+        ),
+        QIV3=list(
+            Resp= list(col='OrangeRed1', pch=3),
+            NResp=list(col='OrangeRed1', pch=1)
+        )
+    ),
+    EU=list(
+        QIV1=list(
+            Resp= list(col='blue2', pch=3),
+            NResp=list(col='blue2', pch=1)
+        ),
+        QIV2=list(
+            Resp= list(col='DodgerBlue2', pch=3),
+            NResp=list(col='DodgerBlue2', pch=1)
+        ),
+        QIV3=list(
+            Resp= list(col='SlateBlue1', pch=3),
+            NResp=list(col='SlateBlue1', pch=1)
+        )
+    )
+)
+
+## Run this function under R to see the colors and symbols for the 12
+## classes known about in 'Plts', above.
+showColorScheme <- function() {
+    ## There are twelve groups to show
+    ## Include several points, say ~50 per category
+    nr <- 50  # Number of rows
+    nc <- 12  # Number of columns
+    m <- matrix(rnorm(nr*nc, mean=0, sd=1), nrow=nr, ncol=nc)
+    addM <- matrix(rep(0:11, each=nr), nrow=nr, ncol=nc) / 2
+    m <- m + addM
+
+    ## Collect color and pch info in matric format to match 'm'
+    colCnt <- 1
+    pchM <- matrix(1, nrow=nr, ncol=nc)
+    colM <- matrix("", nrow=nr, ncol=nc)
+    nm <- NULL
+    for(cnt in c('India', 'EU')) {
+        for(trial in paste0('QIV', 1:3)) {
+            for(resp in c('Resp', 'NResp')) {
+                pchM[, colCnt] <- Plts[[cnt]][[trial]][[resp]][['pch']]
+                colM[, colCnt] <- Plts[[cnt]][[trial]][[resp]][['col']]
+                nm[colCnt] <- paste(resp, trial, cnt, sep='-')
+                colCnt <- colCnt + 1
+            }
+        }
+    }
+
+    ## Run the actual plot
+    oldPar <- par(mar=c(10, 4, 4, 2)+0.1)
+    plot(jitter(rep(1:nc, each=nr)), c(m),
+         pch=c(pchM), col=c(colM),
+         xaxt='n', xlab='',
+         ylab='Value', main='Colors for various classes')
+    axis(side=1, at=1:nc, label=nm, cex=0.8, las=2)
+}
 
 ##**********************************************************************
 ## End Of File
