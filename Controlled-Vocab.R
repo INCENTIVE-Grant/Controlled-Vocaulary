@@ -31,6 +31,8 @@
 ##                  Remove leading zeros in 'KnownStrains' names.
 ##                  Add checks for object name collisions (ouch!).
 ##                  Substantial revision of output column names, "ColumnNames"
+## [2026-02-07 MeD] Remove COMMA from SubAssayNames and SubAssay$ShortName so
+##                  that I can use the command-line "cut -f<field> -d, filename".
 ##
 ##**********************************************************************
 ## Create a function to report errors when this controlled vocabulary
@@ -42,7 +44,7 @@ nameCollisionError <- function(collision) {
 
 ## Try to add an internal version to the controlled vocabulary.
 if( exists("VocabVersion")) nameCollisionError("VocabVersion")
-VocabVersion <- 'v1.3'
+VocabVersion <- 'v1.4'
 
 ## What are the Clinical Trials called?
 ## Use 'None' when it is not from a trial, for example, a positive control.
@@ -71,8 +73,8 @@ AssayNames <- c(
 ## data frame.  Sub-Assays are seen in the Cox Lab serology where some
 ## assays have different sub-types. For example, "HI" assay can be
 ## measured on either a "vaccine strain" or a "non-vaccine strain".
-SubAssayNames <- c("HI titre, vaccine strain",
-                   "HI titre, non-vaccine strain",
+SubAssayNames <- c("HI titre vaccine strain",
+                   "HI titre non-vaccine strain",
                    "Neutralizing Ab titre",
                    "NA Inhibiting Ab titre",
                    "IgG endpoint titre",
@@ -101,11 +103,11 @@ SubAssays <- data.frame(
         "ELISA", "ELISA", "ELISA", "ELISA", "ELISA", "ELISA"
     ),
     ShortName=c(
-        "HI titre, vaccine strain",
-        "HI titre, non-vaccine strain",
-        "HI titre, vaccine strain",
-        "HI titre, non-vaccine strain",
-        "HI titre, vaccine strain",
+        "HI titre vaccine strain",
+        "HI titre non-vaccine strain",
+        "HI titre vaccine strain",
+        "HI titre non-vaccine strain",
+        "HI titre vaccine strain",
         "Neutralizing Ab titre",
         "Neutralizing Ab titre",
         "Neutralizing Ab titre",
