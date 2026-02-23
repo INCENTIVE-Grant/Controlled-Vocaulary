@@ -44,7 +44,7 @@ nameCollisionError <- function(collision) {
 
 ## Try to add an internal version to the controlled vocabulary.
 if( exists("VocabVersion")) nameCollisionError("VocabVersion")
-VocabVersion <- 'v1.4'
+VocabVersion <- 'v1.5'
 
 ## What are the Clinical Trials called?
 ## Use 'None' when it is not from a trial, for example, a positive control.
