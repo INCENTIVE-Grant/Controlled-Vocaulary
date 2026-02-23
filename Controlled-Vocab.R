@@ -66,7 +66,9 @@ AssayNames <- c(
     'ADCD', 'ADCP',
     'FcɣR2A',  'FcɣR2B', 'FcɣR3A',  'FcɣR3B',
     ## Third group from Carlotta Dobano's lab
-    "SpecAb"    # <-- See IDA-EDA_ISGlobal.R for this: Antigen-specific antibody
+    "SpecAb",    # <-- See IDA-EDA_ISGlobal.R for this: Antigen-specific antibody
+    ## Fourth group from Guzmán-Riese-Tritel - soluable factors released upon stim
+    "SolFact"
 )
 
 ## Enumerate valid Sub-assay names for easier checking of SubAssays
@@ -211,6 +213,7 @@ ColumnNames <- c(
     "SubAssay",   # String sub-setting Assay. See above, "SubAssays".
     "Isotype",    # The type of Ig: IgG, IgG1, IgG2, IgG3, IgG4, IgM, IgA, etc
     "UreaPresent",# A TRUE / FALSE value. Was Urea present (2 Molar) for affinty measures.
+    "Stimulation",# A stimulation applied to blood cells to measure which soluable factors are released.
     "PlateID",    # If multiple plates were run, some ID that is specific to a plate.
     "Well"        # If micro-titer plates used, what well number: A1 - P24.
 )
@@ -258,7 +261,11 @@ KnownStrains <- c(
     ## Following pairs are from a specific assay: Cox Lab serology ELLA
     "A/Equine/Prague/1/1956 (H7N7) + A/California/7/2019 (H1N1)",
     "A/Turkey/Massachusetts/3740/1965 (H6N2) + A/Texas/50/2012 (H2N2)",
-    "A/Turkey/Massachusetts/3740/1965 (H6N2) + B/Yamagata/16/1988 (NB)"
+    "A/Turkey/Massachusetts/3740/1965 (H6N2) + B/Yamagata/16/1988 (NB)",
+    ## "Fake" strains added for special cases:
+    "None",          # For negative controls
+    "All",           # Mix of 4 vaccine strains: A/Tasmania, A/Victoria, B/Phuket, B/Washington
+    "Staph. Enterotoxin B" # Positive control for "SolFact" experiment
 )
 
 ## Names that I have found that look right, but aren't.
