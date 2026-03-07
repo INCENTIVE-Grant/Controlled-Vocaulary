@@ -24,8 +24,8 @@ version 1.5 of the vocabulary):
 
 * **TrialNames** := QIV1, QIV2, QIV3, None
 * **AssayNames** := HI, HI-Responder, MN, MN-Plasma, ELLA, ELISA,
-                  ADCD, ADCP, Fc$\gamma$R2A, Fc$\gamma$R2B,
-                  Fc$\gamma$R3A, Fc$\gamma$R3B, SpecAb, SolFact
+                  ADCD, ADCP, FcɣR2A, FcɣR2B,
+                  FcɣR3A, FcɣR3B, SpecAb, SolFact
 * **SampleTypes** := Samp, Stnd, Blank, Empty, Ctrl, Pctrl, Nctrl, None
 * **VisitDay** := D000, D003, D003-8, D028, D030, D058, D180, D365
 * **KnownStrains** := A/Brisbane/2/2018 (H1N1), A/Brisbane/57/2007
