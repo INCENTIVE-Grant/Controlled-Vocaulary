@@ -44,7 +44,7 @@ nameCollisionError <- function(collision) {
 
 ## Try to add an internal version to the controlled vocabulary.
 if( exists("VocabVersion")) nameCollisionError("VocabVersion")
-VocabVersion <- 'v1.5'
+VocabVersion <- 'v1.6'
 
 ## What are the Clinical Trials called?
 ## Use 'None' when it is not from a trial, for example, a positive control.
@@ -68,7 +68,14 @@ AssayNames <- c(
     ## Third group from Carlotta Dobano's lab
     "SpecAb",    # <-- See IDA-EDA_ISGlobal.R for this: Antigen-specific antibody
     ## Fourth group from Guzmán-Riese-Tritel - soluable factors released upon stim
-    "SolFact"
+    "SF:APRIL", "SF:EGF", "SF:ENA-78 (CXCL5)", "SF:Eotaxin (CCL11)",
+    "SF:FGF-2", "SF:G-CSF (CSF-3)", "SF:GM-CSF", "SF:HGF", "SF:IFN alpha",
+    "SF:IFN gamma", "SF:IL-1 beta", "SF:IL-10", "SF:IL-12/IL-23p40",
+    "SF:IL-13", "SF:IL-15", "SF:IL-17A (CTLA-8)", "SF:IL-18", "SF:IL-1RA",
+    "SF:IL-2", "SF:IL-21", "SF:IL-27", "SF:IL-2R", "SF:IL-4", "SF:IL-5",
+    "SF:IL-6", "SF:IL-7", "SF:IL-8 (CXCL8)", "SF:IP-10 (CXCL10)",
+    "SF:MCP-1 (CCL2)", "SF:MIG (CXCL9)", "SF:MIP-1 alpha (CCL3)",
+    "SF:MIP-1 beta (CCL4)", "SF:SDF-1 alpha", "SF:TNF alpha", "SF:VEGF-A"
 )
 
 ## Enumerate valid Sub-assay names for easier checking of SubAssays
