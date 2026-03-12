@@ -44,7 +44,7 @@ nameCollisionError <- function(collision) {
 
 ## Try to add an internal version to the controlled vocabulary.
 if( exists("VocabVersion")) nameCollisionError("VocabVersion")
-VocabVersion <- 'v1.6'
+VocabVersion <- 'v1.6.1'
 
 ## What are the Clinical Trials called?
 ## Use 'None' when it is not from a trial, for example, a positive control.
@@ -67,7 +67,7 @@ AssayNames <- c(
     'FcɣR2A',  'FcɣR2B', 'FcɣR3A',  'FcɣR3B',
     ## Third group from Carlotta Dobano's lab
     "SpecAb",    # <-- See IDA-EDA_ISGlobal.R for this: Antigen-specific antibody
-    ## Fourth group from Guzmán-Riese-Tritel - soluable factors released upon stim
+    ## Fourth group from Guzmán-Riese-Trittel - soluable factors released upon stim
     "SF:APRIL", "SF:EGF", "SF:ENA-78 (CXCL5)", "SF:Eotaxin (CCL11)",
     "SF:FGF-2", "SF:G-CSF (CSF-3)", "SF:GM-CSF", "SF:HGF", "SF:IFN alpha",
     "SF:IFN gamma", "SF:IL-1 beta", "SF:IL-10", "SF:IL-12/IL-23p40",
